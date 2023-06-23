@@ -1,0 +1,286 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ST10081854DatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="TBLEmployee">
+          <Key>
+            <PropertyRef Name="EmployeeID" />
+          </Key>
+          <Property Name="EmployeeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Firstname" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Surname" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="PhoneNumber" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="LoginID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TBLFarmer">
+          <Key>
+            <PropertyRef Name="FarmerID" />
+          </Key>
+          <Property Name="FarmerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Firstname" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Surname" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="PhoneNumber" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Address" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="City " Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="LoginID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TBLLogin">
+          <Key>
+            <PropertyRef Name="LoginID" />
+          </Key>
+          <Property Name="LoginID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Username" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Hash" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TBLProduct">
+          <Key>
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="ProductID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductName" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="DateAdded" Type="datetime" Nullable="false" />
+          <Property Name="Quantity" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="FarmerID" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_FarmerID">
+          <End Role="TBLFarmer" Type="Self.TBLFarmer" Multiplicity="1" />
+          <End Role="TBLProduct" Type="Self.TBLProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBLFarmer">
+              <PropertyRef Name="FarmerID" />
+            </Principal>
+            <Dependent Role="TBLProduct">
+              <PropertyRef Name="FarmerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LoginID">
+          <End Role="TBLLogin" Type="Self.TBLLogin" Multiplicity="1" />
+          <End Role="TBLEmployee" Type="Self.TBLEmployee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBLLogin">
+              <PropertyRef Name="LoginID" />
+            </Principal>
+            <Dependent Role="TBLEmployee">
+              <PropertyRef Name="LoginID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LoginID1">
+          <End Role="TBLLogin" Type="Self.TBLLogin" Multiplicity="1" />
+          <End Role="TBLFarmer" Type="Self.TBLFarmer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBLLogin">
+              <PropertyRef Name="LoginID" />
+            </Principal>
+            <Dependent Role="TBLFarmer">
+              <PropertyRef Name="LoginID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ST10081854DatabaseModelStoreContainer">
+          <EntitySet Name="TBLEmployee" EntityType="Self.TBLEmployee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBLFarmer" EntityType="Self.TBLFarmer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBLLogin" EntityType="Self.TBLLogin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBLProduct" EntityType="Self.TBLProduct" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_FarmerID" Association="Self.FK_FarmerID">
+            <End Role="TBLFarmer" EntitySet="TBLFarmer" />
+            <End Role="TBLProduct" EntitySet="TBLProduct" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LoginID" Association="Self.FK_LoginID">
+            <End Role="TBLLogin" EntitySet="TBLLogin" />
+            <End Role="TBLEmployee" EntitySet="TBLEmployee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LoginID1" Association="Self.FK_LoginID1">
+            <End Role="TBLLogin" EntitySet="TBLLogin" />
+            <End Role="TBLFarmer" EntitySet="TBLFarmer" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ST10081854DatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="TBLEmployee">
+          <Key>
+            <PropertyRef Name="EmployeeID" />
+          </Key>
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Firstname" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Surname" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LoginID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="TBLLogin" Relationship="Self.FK_LoginID" FromRole="TBLEmployee" ToRole="TBLLogin" />
+        </EntityType>
+        <EntityType Name="TBLFarmer">
+          <Key>
+            <PropertyRef Name="FarmerID" />
+          </Key>
+          <Property Name="FarmerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Firstname" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Surname" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="City_" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LoginID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="TBLProducts" Relationship="Self.FK_FarmerID" FromRole="TBLFarmer" ToRole="TBLProduct" />
+          <NavigationProperty Name="TBLLogin" Relationship="Self.FK_LoginID1" FromRole="TBLFarmer" ToRole="TBLLogin" />
+        </EntityType>
+        <EntityType Name="TBLLogin">
+          <Key>
+            <PropertyRef Name="LoginID" />
+          </Key>
+          <Property Name="LoginID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Hash" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="TBLEmployees" Relationship="Self.FK_LoginID" FromRole="TBLLogin" ToRole="TBLEmployee" />
+          <NavigationProperty Name="TBLFarmers" Relationship="Self.FK_LoginID1" FromRole="TBLLogin" ToRole="TBLFarmer" />
+        </EntityType>
+        <EntityType Name="TBLProduct">
+          <Key>
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="ProductID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductName" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DateAdded" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Quantity" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FarmerID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="TBLFarmer" Relationship="Self.FK_FarmerID" FromRole="TBLProduct" ToRole="TBLFarmer" />
+        </EntityType>
+        <Association Name="FK_LoginID">
+          <End Role="TBLLogin" Type="Self.TBLLogin" Multiplicity="1" />
+          <End Role="TBLEmployee" Type="Self.TBLEmployee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBLLogin">
+              <PropertyRef Name="LoginID" />
+            </Principal>
+            <Dependent Role="TBLEmployee">
+              <PropertyRef Name="LoginID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FarmerID">
+          <End Role="TBLFarmer" Type="Self.TBLFarmer" Multiplicity="1" />
+          <End Role="TBLProduct" Type="Self.TBLProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBLFarmer">
+              <PropertyRef Name="FarmerID" />
+            </Principal>
+            <Dependent Role="TBLProduct">
+              <PropertyRef Name="FarmerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LoginID1">
+          <End Role="TBLLogin" Type="Self.TBLLogin" Multiplicity="1" />
+          <End Role="TBLFarmer" Type="Self.TBLFarmer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBLLogin">
+              <PropertyRef Name="LoginID" />
+            </Principal>
+            <Dependent Role="TBLFarmer">
+              <PropertyRef Name="LoginID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ST10081854DatabaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="TBLEmployees" EntityType="Self.TBLEmployee" />
+          <EntitySet Name="TBLFarmers" EntityType="Self.TBLFarmer" />
+          <EntitySet Name="TBLLogins" EntityType="Self.TBLLogin" />
+          <EntitySet Name="TBLProducts" EntityType="Self.TBLProduct" />
+          <AssociationSet Name="FK_LoginID" Association="Self.FK_LoginID">
+            <End Role="TBLLogin" EntitySet="TBLLogins" />
+            <End Role="TBLEmployee" EntitySet="TBLEmployees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FarmerID" Association="Self.FK_FarmerID">
+            <End Role="TBLFarmer" EntitySet="TBLFarmers" />
+            <End Role="TBLProduct" EntitySet="TBLProducts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LoginID1" Association="Self.FK_LoginID1">
+            <End Role="TBLLogin" EntitySet="TBLLogins" />
+            <End Role="TBLFarmer" EntitySet="TBLFarmers" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ST10081854DatabaseModelStoreContainer" CdmEntityContainer="ST10081854DatabaseEntities">
+          <EntitySetMapping Name="TBLEmployees">
+            <EntityTypeMapping TypeName="ST10081854DatabaseModel.TBLEmployee">
+              <MappingFragment StoreEntitySet="TBLEmployee">
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="Firstname" ColumnName="Firstname" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="LoginID" ColumnName="LoginID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBLFarmers">
+            <EntityTypeMapping TypeName="ST10081854DatabaseModel.TBLFarmer">
+              <MappingFragment StoreEntitySet="TBLFarmer">
+                <ScalarProperty Name="FarmerID" ColumnName="FarmerID" />
+                <ScalarProperty Name="Firstname" ColumnName="Firstname" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="City_" ColumnName="City " />
+                <ScalarProperty Name="LoginID" ColumnName="LoginID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBLLogins">
+            <EntityTypeMapping TypeName="ST10081854DatabaseModel.TBLLogin">
+              <MappingFragment StoreEntitySet="TBLLogin">
+                <ScalarProperty Name="LoginID" ColumnName="LoginID" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Hash" ColumnName="Hash" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBLProducts">
+            <EntityTypeMapping TypeName="ST10081854DatabaseModel.TBLProduct">
+              <MappingFragment StoreEntitySet="TBLProduct">
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="FarmerID" ColumnName="FarmerID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
